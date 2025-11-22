@@ -14,7 +14,6 @@ class ProjectDetailResouce extends JsonResource
      */
     public function toArray(Request $request)
     {
-        // dd($this);
         return [
             "id"                    => $this->whenHas('id'),
             "author_id"             => $this->whenHas('author_id'),

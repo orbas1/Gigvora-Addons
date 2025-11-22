@@ -39,9 +39,6 @@ Route::post('login',        [AuthController::class, 'login']);
 Route::post('register',     [AuthController::class, 'register']);
 Route::post('forget-password', [AuthController::class, 'resetEmailPassword']);
 
-// Route::get('resend-email',  fn()=> dd('ddd'));
-
-
  // Taxonomies
 Route::get('taxonomies',    [TaxonomyController::class, 'getTaxonomies']);
 

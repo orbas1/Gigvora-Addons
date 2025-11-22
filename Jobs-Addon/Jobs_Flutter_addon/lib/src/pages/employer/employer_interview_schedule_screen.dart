@@ -47,12 +47,20 @@ class EmployerInterviewScheduleScreen extends StatelessWidget {
             final date = await _pickDateTime(context);
             if (date != null) {
               final state = context.read<InterviewState>();
+              if (state.interviews.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Load candidates before scheduling a new interview.')),
+                );
+                return;
+              }
+
+              final template = state.interviews.first;
               state.schedule(InterviewInvite(
                 id: 0,
                 title: 'Interview',
                 datetime: date.toIso8601String(),
-                candidate: state.interviews.isNotEmpty ? state.interviews.first.candidate : CandidateStub(),
-                jobId: 0,
+                candidate: template.candidate,
+                jobId: template.jobId,
                 status: 'scheduled',
               ));
             }
@@ -75,8 +83,4 @@ class EmployerInterviewScheduleScreen extends StatelessWidget {
     if (time == null) return null;
     return DateTime(date.year, date.month, date.day, time.hour, time.minute);
   }
-}
-
-class CandidateStub extends InterviewCandidate {
-  CandidateStub() : super(id: 0, name: 'Candidate', headline: '');
 }
