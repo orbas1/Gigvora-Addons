@@ -53,6 +53,6 @@ php artisan db:seed --class="Jobs\\Database\\Seeders\\JobsDatabaseSeeder"
 - Subscription records and job credit tracking
 - Interview scheduling records
 - API and web routes for job browsing and management
-- Blade views, translations, and configuration publishing stubs
+- Blade views, translations, and configuration publishing assets
 - Event hooks for live feeds, notifications, and search indexing
 - Endpoints tuned for mobile clients consuming the Flutter addon

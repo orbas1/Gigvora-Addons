@@ -5,7 +5,9 @@ const duration = document.getElementById('forecast-duration');
 const budgetLabel = document.getElementById('forecast-budget-label');
 const durationLabel = document.getElementById('forecast-duration-label');
 const chartEl = document.getElementById('forecast-chart');
+const applyBtn = document.getElementById('apply-forecast');
 let chartInstance;
+let lastForecast = null;
 
 const updateLabels = () => {
     budgetLabel && (budgetLabel.textContent = `$${budget?.value || 0}`);
@@ -36,10 +38,13 @@ const fetchForecast = async () => {
             duration: duration?.value,
             campaign_id: document.querySelector('select[name="campaign_id"]')?.value,
         });
+        lastForecast = data;
         updateMetrics(data.metrics || {});
         renderChart(data.labels || [], data.conversions || []);
+        applyBtn?.removeAttribute('disabled');
     } catch (e) {
         console.error('Forecast failed', e);
+        applyBtn?.setAttribute('disabled', 'disabled');
     }
 };
 
@@ -61,5 +66,12 @@ document.getElementById('forecast-form')?.addEventListener('submit', (e) => {
 updateLabels();
 if (chartEl) fetchForecast();
 
-const applyBtn = document.getElementById('apply-forecast');
-applyBtn?.addEventListener('click', () => alert('Forecast applied to campaign (stub).'));
+applyBtn?.addEventListener('click', () => {
+    if (!lastForecast) return;
+
+    const event = new CustomEvent('advertisement:forecastApplied', {
+        detail: lastForecast,
+    });
+
+    document.dispatchEvent(event);
+});
