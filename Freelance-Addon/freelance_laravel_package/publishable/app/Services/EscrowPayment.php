@@ -801,24 +801,6 @@ class EscrowPayment
         return $response;
     }
 
-    public function addpayment($id, $amount){ // testing for sandbox will remove in production environment
-
-        $url = 'https://integrationhelper.escrow-sandbox.com/v1/transaction/'.$id.'/payments_in';
-
-        $output = $this->escrow_request->timeout(3000)->post($url,
-            array(
-                'method' => 'wire_transfer',
-                'amount' => $amount,
-            )
-        );
-        if( $output->failed() ){
-            $body = json_decode( $output->body(), true );
-            // dd($body);
-        }
-        $body = json_decode( $output->body(), true );
-        // dd($output);
-    }
-
     public function getTransaction( $params = array() ){
 
         $response = array();

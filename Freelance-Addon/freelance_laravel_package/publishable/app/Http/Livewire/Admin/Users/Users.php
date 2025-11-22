@@ -142,7 +142,6 @@ class Users extends Component
                 $user->update(['status' => $user->status == 'activated' ? 'deactivated' : 'activated']);
 
             }
-            // dd($isUpdate);
         }
     }
 

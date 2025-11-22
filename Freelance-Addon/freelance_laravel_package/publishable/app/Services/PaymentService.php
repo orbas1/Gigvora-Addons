@@ -698,7 +698,6 @@ class PaymentService
                 default => null
             };
         }
-        // dd($projectData);
         return [
             'project_id'                => $projectData?->project?->id,
             'proposal_id'               => $projectData?->proposal_id,

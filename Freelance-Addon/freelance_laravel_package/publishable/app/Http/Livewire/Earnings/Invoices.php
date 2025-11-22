@@ -85,7 +85,6 @@ class Invoices extends Component
         if(!empty($transaction)) {
             $paymentService  =   new PaymentService();
             $data = $paymentService->getTransactionItemDetail($transaction);
-            // dd($data);
             if($data['type'] == 'package') {
                 $package_data = [
                     'creator_id'        => $this->profile_id,
