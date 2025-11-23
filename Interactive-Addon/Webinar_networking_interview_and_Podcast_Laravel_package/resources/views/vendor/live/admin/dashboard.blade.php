@@ -3,7 +3,13 @@
 @section('title', 'Live & Events Dashboard')
 
 @section('content')
-<div class="container-fluid py-4" id="admin-live-dashboard">
+<div
+    class="container-fluid py-4"
+    id="admin-live-dashboard"
+    data-webinars-endpoint="{{ url('/api/wnip/webinars') }}"
+    data-networking-endpoint="{{ url('/api/wnip/networking') }}"
+    data-interviews-endpoint="{{ url('/api/wnip/interviews') }}"
+>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="h3 mb-1">Live & Events</h1>
@@ -12,25 +18,39 @@
         <button class="btn btn-outline-secondary">Refresh</button>
     </div>
 
-    <div class="row g-3 mb-4">
-        @php
-            $stats = [
-                ['label' => 'Upcoming webinars', 'value' => 12],
-                ['label' => 'Networking events', 'value' => 6],
-                ['label' => 'Interviews this week', 'value' => 18],
-                ['label' => 'Hours recorded', 'value' => 240],
-            ];
-        @endphp
-        @foreach($stats as $stat)
-            <div class="col-md-3">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="text-muted small">{{ $stat['label'] }}</div>
-                        <div class="display-6">{{ $stat['value'] }}</div>
-                    </div>
+    <div class="row g-3 mb-4" id="admin-metrics">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Upcoming webinars</div>
+                    <div class="display-6" data-metric="upcoming-webinars">--</div>
                 </div>
             </div>
-        @endforeach
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Networking events</div>
+                    <div class="display-6" data-metric="networking-events">--</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Interviews this week</div>
+                    <div class="display-6" data-metric="interviews-week">--</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Hours recorded</div>
+                    <div class="display-6" data-metric="hours-recorded">--</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row g-4">
@@ -40,9 +60,8 @@
                 <div class="table-responsive">
                     <table class="table mb-0" id="admin-events-table">
                         <thead><tr><th>Type</th><th>Title</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody>
-                            <tr><td>Webinar</td><td>Designing with AI</td><td>May 5</td><td><span class="badge bg-warning">Live soon</span></td><td><button class="btn btn-sm btn-outline-primary">Manage</button></td></tr>
-                            <tr><td>Networking</td><td>Fintech founders</td><td>May 4</td><td><span class="badge bg-success">Live</span></td><td><button class="btn btn-sm btn-outline-primary">Manage</button></td></tr>
+                        <tbody id="admin-events-body">
+                            <tr><td colspan="5" class="text-muted">Loading live events...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -61,7 +80,7 @@
             <div class="card h-100">
                 <div class="card-header">Attendance stats</div>
                 <div class="card-body">
-                    <div id="admin-metrics" class="text-center text-muted">Charts placeholder</div>
+                    <div id="admin-metrics-chart" class="text-center text-muted">Charts placeholder</div>
                 </div>
             </div>
         </div>
