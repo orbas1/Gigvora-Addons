@@ -22,6 +22,7 @@ use Gigvora\TalentAi\Policies\LaunchpadProgrammePolicy;
 use Gigvora\TalentAi\Policies\VolunteeringApplicationPolicy;
 use Gigvora\TalentAi\Policies\VolunteeringOpportunityPolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class TalentAiServiceProvider extends ServiceProvider
@@ -37,6 +38,9 @@ class TalentAiServiceProvider extends ServiceProvider
             $this->loadRoutesFrom(__DIR__ . '/../../routes/addons_talent_ai.php');
         }
 
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'talent_ai');
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'talent_ai');
+
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
         Gate::policy(HeadhunterProfile::class, HeadhunterProfilePolicy::class);
@@ -49,5 +53,9 @@ class TalentAiServiceProvider extends ServiceProvider
         Gate::policy(VolunteeringApplication::class, VolunteeringApplicationPolicy::class);
 
         Gate::define('manage_talent_ai', [AiAdminPolicy::class, 'manage']);
+
+        View::composer(['layouts.admin', 'admin.*'], function ($view): void {
+            $view->with('talentAiAdminMenu', view('talent_ai::admin.partials.menu'));
+        });
     }
 }

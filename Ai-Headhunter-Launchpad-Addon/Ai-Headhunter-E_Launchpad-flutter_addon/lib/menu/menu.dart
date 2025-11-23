@@ -1,3 +1,5 @@
+import '../models/talent_ai_models.dart';
+
 class MenuItem {
   final String id;
   final String label;
@@ -62,3 +64,40 @@ const List<MenuItem> proNetworkMenuItems = [
     iconKey: 'lock',
   ),
 ];
+
+List<MenuItem> talentAiMenuItems(TalentAiFeatureFlags flags) {
+  final items = <MenuItem>[];
+  if (flags.headhunters) {
+    items.add(const MenuItem(
+      id: 'headhunter-dashboard',
+      label: 'Headhunters',
+      routeName: '/talent-ai/headhunters',
+      iconKey: 'work',
+    ));
+  }
+  if (flags.launchpad) {
+    items.add(const MenuItem(
+      id: 'launchpad-programmes',
+      label: 'Launchpad',
+      routeName: '/talent-ai/launchpad',
+      iconKey: 'school',
+    ));
+  }
+  if (flags.aiWorkspace) {
+    items.add(const MenuItem(
+      id: 'ai-workspace',
+      label: 'AI Workspace',
+      routeName: '/talent-ai/ai-workspace',
+      iconKey: 'bolt',
+    ));
+  }
+  if (flags.volunteering) {
+    items.add(const MenuItem(
+      id: 'volunteering',
+      label: 'Volunteering',
+      routeName: '/talent-ai/volunteering',
+      iconKey: 'favorite',
+    ));
+  }
+  return items;
+}

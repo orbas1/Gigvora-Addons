@@ -8,3 +8,4 @@ export 'security_models.dart';
 export 'newsletter_models.dart';
 export 'chat_models.dart';
 export 'music_models.dart';
+export 'talent_ai_models.dart';
