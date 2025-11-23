@@ -10,3 +10,4 @@ export 'posts.dart';
 export 'profile.dart';
 export 'stories.dart';
 export 'common.dart';
+export 'talent_ai.dart';

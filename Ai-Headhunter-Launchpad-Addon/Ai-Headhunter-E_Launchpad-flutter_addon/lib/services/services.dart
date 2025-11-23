@@ -6,3 +6,4 @@ export 'posts_api.dart';
 export 'chat_api.dart';
 export 'analytics_api.dart';
 export 'security_api.dart';
+export 'talent_ai_api.dart';
